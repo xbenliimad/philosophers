@@ -1,14 +1,12 @@
 NAME= philo
 
-SRC= ./src/main.c \
-./src/parsing.c \
-./src/ft_atoi.c \
+SRC= handle_errors.c	handle_establish.c \
+	handle_expand.c	handle_init.c	handle_launcher.c \
+	handle_time.c	utils.c main.c \
 
 OBJ= $(SRC:%.c=%.o)
 
-INCLUDES= -I./includes
-
-FLAGS= -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address
+FLAGS= -Wall -Wextra -Werror #-fsanitize=address
 
 all : $(NAME) 
 
