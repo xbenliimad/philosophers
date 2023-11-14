@@ -15,7 +15,6 @@ typedef struct s_data {
 	int				tteat;
 	int				ttsleep;
 	int				eat_times;
-	int				must_eat;
 	long			init;
 	pthread_mutex_t	*meal;
 	pthread_mutex_t	*l_eat;
@@ -29,10 +28,10 @@ typedef struct s_philo
 	long		meals;
 	long		last_eat;
 	pthread_t	*thread;
-	t_data		*g_struct;
+	t_data		*data;
 }	t_philo;
 
-// Error management
+// Print Error
 int		print_error(char *msg);
 
 // time management

@@ -1,13 +1,13 @@
 #include "philo.h"
 
-int	verify_value(char **n)
+int	verify_value(char **argv)
 {
 	int	i;
 
 	i = 1;
-	while (n[i])
+	while (argv[i])
 	{
-		if (ft_atoi(n[i]) <= 0)
+		if (ft_atoi(argv[i]) <= 0)
 			return (1);
 		i++;
 	}
@@ -17,16 +17,16 @@ int	verify_value(char **n)
 int	verify_arg(char **argv)
 {
 	int	i;
-	int	v;
+	int	j;
 
 	i = 1;
 	while (argv[i])
 	{
-		v = 0;
-		while (argv[i][v])
+		j = 0;
+		while (argv[i][j])
 		{
-			if (argv[i][v] >= '0' && argv[i][v] <= '9')
-				v++;
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+				j++;
 			else
 				return (1);
 		}

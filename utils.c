@@ -1,15 +1,15 @@
 #include "philo.h"
 
-void	declare(t_philo *p, char *str, long time)
+void	 declare(t_philo *p, char *str, long time)
 {
-	pthread_mutex_lock (p->g_struct->note);
+	pthread_mutex_lock (p->data->note);
 	printf (str, (int)time, p->thread_id);
-	pthread_mutex_unlock (p->g_struct->note);
+	pthread_mutex_unlock (p->data->note);
 }
 
 int	following_mutex(t_philo *p)
 {
-	if (p->thread_id == p->g_struct->n_philos)
+	if (p->thread_id == p->data->n_philos)
 		return (0);
 	else
 		return (p->thread_id);
