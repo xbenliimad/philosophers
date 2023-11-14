@@ -6,14 +6,14 @@ int	all_ate(t_philo *p)
 	if ((actual_time(p->data->init) - p->last_eat) >= p->data->ttdie)
 	{
 		pthread_mutex_lock(p->data->note);
-		printf("%ld msec philo %d is dead\n",
+		printf("%lld msec philo %d is dead\n",
 			actual_time(p->data->init), p->thread_id);
 		return (1);
 	}
 	pthread_mutex_unlock(p->data->l_eat);
   	pthread_mutex_lock(p->data->meal);
 	if (p->data->eat_times != -1
-		&& p->meals == p->data->eat_times)
+		&& p->data->must_eat == 0)
 	{
 		pthread_mutex_lock(p->data->note);
 		return (2);

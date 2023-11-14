@@ -15,7 +15,8 @@ typedef struct s_data {
 	int				tteat;
 	int				ttsleep;
 	int				eat_times;
-	long			init;
+	int				must_eat;
+	long long		init;
 	pthread_mutex_t	*meal;
 	pthread_mutex_t	*l_eat;
 	pthread_mutex_t	*note;
@@ -36,7 +37,7 @@ int		print_error(char *msg);
 
 // time management
 void	sleeep(int time);
-long	actual_time(long time);
+long long	actual_time(long long time);
 
 // verifiers 
 int		ft_isdigit(int c);
@@ -56,6 +57,6 @@ int		following_mutex(t_philo *philo);
 
 // indicators
 void	manifest_sleep(t_philo *p);
-void	declare(t_philo *p, char *str, long time);
+void	declare(t_philo *p, char *str, long long time);
 
 #endif

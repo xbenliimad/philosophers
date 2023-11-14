@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	 declare(t_philo *p, char *str, long time)
+void	 declare(t_philo *p, char *str, long long time)
 {
 	pthread_mutex_lock (p->data->note);
 	printf (str, (int)time, p->thread_id);

@@ -18,9 +18,15 @@ t_data	*init_expand(char **argv)
 	pthread_mutex_init(data->note, NULL);
 	pthread_mutex_init(data->meal, NULL);
 	if (argv[5])
+	{
 		data->eat_times = ft_atoi(argv[5]);
+		data->must_eat = data->n_philos;
+	}
 	else
+	{
 		data->eat_times = -1;
+		data->must_eat = -1;
+	}
 	return (data);
 }
 
