@@ -1,6 +1,6 @@
 #include "philo.h"
 
-long long	actual_time(long long time)
+long long	timestamp(long long time)
 {
 	struct timeval now;
 
@@ -8,18 +8,18 @@ long long	actual_time(long long time)
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000) - time);
 }
 
-void	sleeep(int time)
+void	go_sleep(int time)
 {
 	long long	count;
 
-	count = actual_time(0);
-	while (actual_time(count) < time)
+	count = timestamp(0);
+	while (timestamp(count) < time)
 		usleep(300);
 }
 
-void	manifest_sleep(t_philo *p)
+void	handle_sleeping(t_philo *p)
 {
-	declare(p, "%lld msec philo %d is sleeping\n",
-		actual_time(p->data->init));
-	sleeep(p->data->ttsleep);
+	print_message(p, "%lld %d is sleeping\n",
+		timestamp(p->data->init));
+	go_sleep(p->data->time_to_sleep);
 }

@@ -11,23 +11,23 @@
 
 typedef struct s_data {
 	int				n_philos;
-	int				ttdie;
-	int				tteat;
-	int				ttsleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				eat_times;
 	int				must_eat;
 	long long		init;
 	pthread_mutex_t	*meal;
 	pthread_mutex_t	*l_eat;
-	pthread_mutex_t	*note;
+	pthread_mutex_t	*message;
 	pthread_mutex_t	*fork;
 }	t_data;
 
 typedef struct s_philo
 {
 	int			thread_id;
-	long		meals;
-	long		last_eat;
+	long long	meals;
+	long long	last_eat;
 	pthread_t	*thread;
 	t_data		*data;
 }	t_philo;
@@ -36,27 +36,27 @@ typedef struct s_philo
 int		print_error(char *msg);
 
 // time management
-void	sleeep(int time);
-long long	actual_time(long long time);
+void	go_sleep(int time);
+long long	timestamp(long long time);
 
-// verifiers 
+// check_statuss 
 int		ft_isdigit(int c);
-int		all_ate(t_philo *p);
-int		verifier(t_philo *p);
-int		verify_value(char **n);
-int		verify_arg(char **argv);
+int		handle_status(t_philo *p);
+int		check_status(t_philo *p);
+int		verify_values(char **n);
+int		verify_args(char **argv);
 int		ft_atoi(const char *str);
 
 // program launch
 void	*routine(void *p);
-void	eat_start(t_philo *p);
-int		philosophing(t_philo *p);
-t_philo	*initialize(char **argv);
+void	handle_eating(t_philo *p);
+int		handle_philo(t_philo *p);
+t_philo	*handle_initialization(char **argv);
 t_data	*init_expand(char **argv);
-int		following_mutex(t_philo *philo);
+int		handle_next_fork(t_philo *philo);
 
 // indicators
-void	manifest_sleep(t_philo *p);
-void	declare(t_philo *p, char *str, long long time);
+void	handle_sleeping(t_philo *p);
+void	print_message(t_philo *p, char *str, long long time);
 
 #endif

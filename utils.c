@@ -1,27 +1,11 @@
 #include "philo.h"
 
-void	 declare(t_philo *p, char *str, long long time)
-{
-	pthread_mutex_lock (p->data->note);
-	printf (str, (int)time, p->thread_id);
-	pthread_mutex_unlock (p->data->note);
-}
-
-int	following_mutex(t_philo *p)
-{
-	if (p->thread_id == p->data->n_philos)
-		return (0);
-	else
-		return (p->thread_id);
-}
-
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
-
 
 int	ft_atoi(const char *str)
 {
@@ -51,4 +35,19 @@ int	ft_atoi(const char *str)
 			return (0);
 	}
 	return (result * sign);
+}
+
+int	handle_next_fork(t_philo *p)
+{
+	if (p->thread_id == p->data->n_philos)
+		return (0);
+	else
+		return (p->thread_id);
+}
+
+void	 print_message(t_philo *p, char *str, long long time)
+{
+	pthread_mutex_lock (p->data->message);
+	printf (str, time, p->thread_id);
+	pthread_mutex_unlock (p->data->message);
 }

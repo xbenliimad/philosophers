@@ -1,13 +1,13 @@
 #include "philo.h"
 
-int	all_ate(t_philo *p)
+int	handle_status(t_philo *p)
 {
 	pthread_mutex_lock(p->data->l_eat);
-	if ((actual_time(p->data->init) - p->last_eat) >= p->data->ttdie)
+	if ((timestamp(p->data->init) - p->last_eat) >= p->data->time_to_die)
 	{
-		pthread_mutex_lock(p->data->note);
-		printf("%lld msec philo %d is dead\n",
-			actual_time(p->data->init), p->thread_id);
+		pthread_mutex_lock(p->data->message);
+		printf("%lld %d is dead\n",
+			timestamp(p->data->init), p->thread_id);
 		return (1);
 	}
 	pthread_mutex_unlock(p->data->l_eat);
@@ -15,14 +15,14 @@ int	all_ate(t_philo *p)
 	if (p->data->eat_times != -1
 		&& p->data->must_eat == 0)
 	{
-		pthread_mutex_lock(p->data->note);
+		pthread_mutex_lock(p->data->message);
 		return (2);
 	}
 	pthread_mutex_unlock(p->data->meal);
 	return (0);
 }
 
-int	verifier(t_philo *p)
+int	check_status(t_philo *p)
 {
 	int	i;
 	int	value;
@@ -32,7 +32,7 @@ int	verifier(t_philo *p)
 	{
 		while (i < p->data->n_philos)
 		{
-			value = all_ate(&p[i]);
+			value = handle_status(&p[i]);
 			if (value != 0)
 				return (value);
 			i++;

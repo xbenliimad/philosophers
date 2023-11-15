@@ -4,13 +4,11 @@ int	main(int argc, char **argv)
 {
 	t_philo	*p;
 
-  	if (argc == 5 || argc == 6)
-  	{
-		if (verify_arg(argv) || verify_value(argv))
-			return (print_error("invalid args."));
-		p = initialize(argv);
-  		philosophing(p);
-		return (verifier(p));
-  	}
-  	return (print_error("more or less args required."));
+  	if (argc != 5 && argc != 6)
+		return (print_error("Number of args is not valid."));
+	if (verify_args(argv) || verify_values(argv))
+		return (print_error("Args are not valid."));
+	p = handle_initialization(argv);
+	handle_philo(p);
+	return (check_status(p));
 }

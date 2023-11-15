@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int	verify_value(char **argv)
+int	verify_values(char **argv)
 {
 	int	i;
 
@@ -14,7 +14,7 @@ int	verify_value(char **argv)
 	return (0);
 }
 
-int	verify_arg(char **argv)
+int	verify_args(char **argv)
 {
 	int	i;
 	int	j;
