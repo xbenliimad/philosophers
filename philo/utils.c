@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/16 21:22:01 by ibenli            #+#    #+#             */
+/*   Updated: 2023/11/16 22:08:35 by ibenli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_isdigit(int c)
@@ -20,9 +32,8 @@ int	ft_atoi(const char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[i] == '-')
+		if (str[i++] == '-')
 			sign *= -1;
-		i++;
 	}
 	while (str[i])
 	{
@@ -45,9 +56,9 @@ int	handle_next_fork(t_philo *p)
 		return (p->thread_id);
 }
 
-void	 print_message(t_philo *p, char *str, long long time)
+void	print_message(t_philo *p, char *str, long long time)
 {
-	pthread_mutex_lock (p->data->message);
+	pthread_mutex_lock (&p->data->message);
 	printf (str, time, p->thread_id);
-	pthread_mutex_unlock (p->data->message);
+	pthread_mutex_unlock (&p->data->message);
 }

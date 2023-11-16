@@ -1,24 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_expand.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/16 21:15:21 by ibenli            #+#    #+#             */
+/*   Updated: 2023/11/16 22:07:38 by ibenli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	handle_status(t_philo *p)
 {
-	pthread_mutex_lock(p->data->l_eat);
+	pthread_mutex_lock(&p->data->l_eat);
 	if ((timestamp(p->data->init) - p->last_eat) >= p->data->time_to_die)
 	{
-		pthread_mutex_lock(p->data->message);
+		pthread_mutex_lock(&p->data->message);
 		printf("%lld %d is dead\n",
 			timestamp(p->data->init), p->thread_id);
 		return (1);
 	}
-	pthread_mutex_unlock(p->data->l_eat);
-  	pthread_mutex_lock(p->data->meal);
-	if (p->data->eat_times != -1
-		&& p->data->must_eat == 0)
+	pthread_mutex_unlock(&p->data->l_eat);
+	pthread_mutex_lock(&p->data->meal);
+	if (p->data->eat_times != -1 && p->data->must_eat == 0)
 	{
-		pthread_mutex_lock(p->data->message);
+		pthread_mutex_lock(&p->data->message);
 		return (2);
 	}
-	pthread_mutex_unlock(p->data->meal);
+	pthread_mutex_unlock(&p->data->meal);
 	return (0);
 }
 

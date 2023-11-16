@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_launcher.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/16 21:23:35 by ibenli            #+#    #+#             */
+/*   Updated: 2023/11/16 22:08:39 by ibenli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	handle_eating(t_philo *p)
@@ -16,15 +28,15 @@ void	handle_eating(t_philo *p)
 	print_message(p, "%lld %d is eating\n",
 		timestamp(p->data->init));
 	go_sleep(p->data->time_to_eat);
-	pthread_mutex_lock(p->data->l_eat);
+	pthread_mutex_lock(&p->data->l_eat);
 	p->last_eat = timestamp(p->data->init);
-	pthread_mutex_unlock(p->data->l_eat);
+	pthread_mutex_unlock(&p->data->l_eat);
 	if (p->data->eat_times != -1)
 		p->meals++;
-	pthread_mutex_lock(p->data->meal);
+	pthread_mutex_lock(&p->data->meal);
 	if (p->meals == p->data->eat_times)
 		p->data->must_eat--;
-	pthread_mutex_unlock(p->data->meal);
+	pthread_mutex_unlock(&p->data->meal);
 	pthread_mutex_unlock(&p->data->fork[current_fork]);
 	pthread_mutex_unlock(&p->data->fork[next_fork]);
 }
@@ -44,7 +56,7 @@ void	*routine(void *p)
 	return (NULL);
 }
 
-int		handle_philo(t_philo *p)
+int	handle_philo(t_philo *p)
 {
 	int	i;
 
@@ -52,14 +64,14 @@ int		handle_philo(t_philo *p)
 	i = 0;
 	while (i < p->data->n_philos)
 	{
-		pthread_create(p[i].thread, NULL, &routine, &p[i]);
+		pthread_create(&p[i].thread, NULL, &routine, &p[i]);
 		i += 2;
 	}
 	go_sleep(10);
 	i = 1;
 	while (i < p->data->n_philos)
 	{
-		pthread_create(p[i].thread, NULL, &routine, &p[i]);
+		pthread_create(&p[i].thread, NULL, &routine, &p[i]);
 		i += 2;
 	}
 	return (0);
